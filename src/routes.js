@@ -13,10 +13,10 @@ routes.post('/auth/login', AuthController.login);
 routes.post('/auth/register', AuthController.register);
 
 // Users
-routes.get('/users', UsersController.index);
+routes.get('/users', auth, UsersController.index);
 
 //Photos
 routes.post('/photos/:user_id/store', multer(multerConfig).single('file'), PhotosController.store);
-routes.get('/photos/:user_id', PhotosController.index);
+routes.get('/photos/:user_id', auth, PhotosController.index);
 
 module.exports = routes;

@@ -45,11 +45,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  user.associate = (models) => {
+  /*user.associate = (models) => {
     user.belongsTo(models.Photos, {      
       foreignKey: 'user_id',
     });
-  };
+  };*/
 
   return user;
 }

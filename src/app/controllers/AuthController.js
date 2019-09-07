@@ -11,7 +11,7 @@ class Auth {
 
       if(!user) return res.status(400).json({ error: 'User not found' });
 
-      return res.json({ user });
+      return res.json(user);
 
     } catch (error) {
       throw new Error(error);
@@ -29,7 +29,7 @@ class Auth {
 
       const user = await Users.create(req.body);
 
-      return res.json({ user });
+      return res.json(user);
 
     } catch (error) {
       throw new Error(error);
