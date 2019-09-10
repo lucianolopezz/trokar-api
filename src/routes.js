@@ -21,6 +21,7 @@ routes.post('/photos/:user_id/store', multer(multerConfig).single('file'), Photo
 routes.get('/photos/:user_id', auth, PhotosController.index);
 
 // Likes
-routes.post('/likes', auth, LikesController.like);
+routes.post('/like', auth, LikesController.like);
+routes.post('/dislike', auth, LikesController.dislike);
 
 module.exports = routes;
