@@ -1,6 +1,6 @@
 const { Users } = require('../models');
 
-class User {
+class UsersController {
 
   async index(req, res) {
     try {
@@ -18,4 +18,4 @@ class User {
 
 }
 
-module.exports = new User();
+module.exports = new UsersController();
