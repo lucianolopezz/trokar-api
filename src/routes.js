@@ -8,6 +8,7 @@ const AuthController = require('./app/controllers/AuthController');
 const UsersController = require('./app/controllers/UsersController');
 const PhotosController = require('./app/controllers/PhotosController');
 const LikesController = require('./app/controllers/LikesController');
+const ExchangePreferencesController = require('./app/controllers/ExchangePreferencesController');
 
 // Auth
 routes.post('/auth/login', AuthController.login);
@@ -23,5 +24,8 @@ routes.get('/photos/:user_id', auth, PhotosController.index);
 // Likes
 routes.post('/like', auth, LikesController.like);
 routes.post('/dislike', auth, LikesController.dislike);
+
+// exchange preferences
+routes.get('/exchange_preferences', auth, ExchangePreferencesController.index);
 
 module.exports = routes;

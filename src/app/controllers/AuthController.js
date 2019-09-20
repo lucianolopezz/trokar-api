@@ -23,7 +23,7 @@ class Auth {
 
       const { phone } = req.body;
       
-      const userExists = await Users.findOne({ where: { phone: phone } });
+      const userExists = await Users.findOne({ where: { phone } });
 
       if(userExists) return res.status(400).json({ 'error': 'user already exists'});
 
