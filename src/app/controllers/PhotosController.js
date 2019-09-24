@@ -32,6 +32,17 @@ class PhotosController {
     }
   }
 
+  async delete(req, res) {
+    try {
+      
+      const photo = await Photos.destroy({ where: { id: req.params.id } });
+
+      return res.json(photo);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
 }
 
 module.exports = new PhotosController();

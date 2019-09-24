@@ -19,6 +19,7 @@ routes.get('/users', auth, UsersController.index);
 
 //Photos
 routes.post('/photos/:user_id/store', multer(multerConfig).single('file'), PhotosController.store);
+routes.delete('/photos/:id', auth, PhotosController.delete);
 routes.get('/photos/:user_id', auth, PhotosController.index);
 
 // Likes
