@@ -15,7 +15,8 @@ routes.post('/auth/login', AuthController.login);
 routes.post('/auth/register', AuthController.register);
 
 // Users
-routes.get('/users', auth, UsersController.index);
+routes.get('/users/:id', auth, UsersController.index);
+routes.get('/users/:id/matches', auth, UsersController.matches);
 
 //Photos
 routes.post('/photos/:user_id/store', multer(multerConfig).single('file'), PhotosController.store);

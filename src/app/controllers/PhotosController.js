@@ -11,7 +11,7 @@ class PhotosController {
         name,
         size,
         key,
-        url: `${req.get('host')}/uploads/${key}`,
+        url: `${req.protocol}://${req.get('host')}/uploads/${key}`,
       });
 
       return res.json(photo);
@@ -23,7 +23,7 @@ class PhotosController {
 
   async index(req, res) {
     try {
-      
+
       const photos = await Photos.findAll({ where: { active: true, user_id: req.params.user_id } });
 
       return res.json(photos);

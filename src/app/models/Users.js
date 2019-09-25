@@ -47,11 +47,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  /*user.associate = (models) => {
-    user.belongsTo(models.Photos, {      
+  user.associate = (models) => {
+    user.hasMany(models.Photos, {      
       foreignKey: 'user_id',
     });
-  };*/
+    user.hasMany(models.Likes, {
+      foreignKey: 'user_source',
+    });
+  };
 
   return user;
 }

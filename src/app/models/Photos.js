@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   photo.associate = (models) => {
-    photo.belongsTo(models.Users, {      
+    photo.belongsTo(models.Users, {
       foreignKey: 'user_id',
     });
   };

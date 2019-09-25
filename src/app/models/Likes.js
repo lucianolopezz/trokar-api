@@ -27,11 +27,11 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  /*user.associate = (models) => {
-    user.belongsTo(models.Photos, {      
-      foreignKey: 'user_id',
+  like.associate = (models) => {
+    like.belongsTo(models.Users, {
+      foreignKey: 'user_source',
     });
-  };*/
+  };
 
   return like;
 }
