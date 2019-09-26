@@ -5,3 +5,5 @@ node_modules 2
 
 tmp/uploads/*
 !tmp/uploads/.gitkeep
+package-lock.json
+yarn.lock
