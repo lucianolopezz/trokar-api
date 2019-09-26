@@ -7,9 +7,10 @@ require('moment').tz.setDefault(timezone);
 
 module.exports = {
   dialect: 'mysql',
-  host: '127.0.0.1',
-  username: 'root',
-  password: '',
+  host: 'db4free.net',
+  port: '3306',
+  username: 'lucianolopezz',
+  password: '81488105',
   database: 'trokar',
   operatorAliases: false,
   charset: 'utf8',
