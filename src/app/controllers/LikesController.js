@@ -1,4 +1,4 @@
-const { Likes } = require('../models');
+const { Likes, Users, Photos } = require('../models');
 
 class LikesController {
 
@@ -15,7 +15,20 @@ class LikesController {
 
       const usersMatch = await Likes.findOne({ where: { user_source, user_target, user_target: user_source, user_source: user_target, active: true } });
 
-      if(usersMatch) console.log('Match');
+      if(usersMatch) {
+        const loggedSocket = req.connectedUsers[user_source];
+        const targetSocket = req.connectedUsers[user_target];
+        const userSource = await Users.findOne({ where: { id: user_source }, include: [Photos] });
+        const userTarget = await Users.findOne({ where: { id: user_target }, include: [Photos] });
+
+        if(loggedSocket) {
+          req.io.to(loggedSocket).emit('match', userTarget);
+        }
+
+        if(targetSocket) {
+          req.io.to(targetSocket).emit('match', userSource);
+        }
+      }
 
       return res.json(like);
 

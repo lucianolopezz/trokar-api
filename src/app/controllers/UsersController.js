@@ -25,6 +25,24 @@ class UsersController {
     }
   }
 
+  async view(req, res) {
+    try {
+      
+      const user = await Users.findById({
+        where: {
+          id: req.params.id,
+          active: true,
+        },
+        include: [Photos],
+      });
+
+      return res.json(user);
+
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   async matches(req, res) {
     try {
       
