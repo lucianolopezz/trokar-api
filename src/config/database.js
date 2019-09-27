@@ -1,17 +1,14 @@
-/**
- * Adicionar este arquivo na pasta src/config/
- */
 const timezone = 'America/Campo_Grande'
 
 require('moment').tz.setDefault(timezone);
 
 module.exports = {
   dialect: 'mysql',
-  host: 'db4free.net',
-  port: '3306',
-  username: 'lucianolopezz',
-  password: '81488105',
-  database: 'trokar',
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
   operatorAliases: false,
   charset: 'utf8',
   collate: 'utf8_general_ci',
