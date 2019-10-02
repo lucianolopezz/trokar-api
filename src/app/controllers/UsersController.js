@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { Users, Photos, Likes } = require('../models');
+const { Users, Photos } = require('../models');
 const Op = Sequelize.Op;
 
 class UsersController {
@@ -28,7 +28,7 @@ class UsersController {
   async view(req, res) {
     try {
       
-      const user = await Users.findById({
+      const user = await Users.findOne({
         where: {
           id: req.params.id,
           active: true,
@@ -50,8 +50,8 @@ class UsersController {
         where: {
           [Op.and]: [
             {id: { [Op.ne]: req.params.id }},
-            {id: { [Op.in]: Sequelize.literal(`(SELECT l.user_target FROM likes l WHERE l.user_source = ${req.params.id} AND l.like = true)`) }},            
-            {id: { [Op.in]: Sequelize.literal(`(SELECT l.user_source FROM likes l WHERE l.user_target = ${req.params.id} AND l.like = true)`) }},            
+            {id: { [Op.in]: Sequelize.literal(`(SELECT l.user_target FROM likes l WHERE l.user_source = ${req.params.id} AND l.liked = true)`) }},            
+            {id: { [Op.in]: Sequelize.literal(`(SELECT l.user_source FROM likes l WHERE l.user_target = ${req.params.id} AND l.liked = true)`) }},            
           ],
           active: true,
         },
