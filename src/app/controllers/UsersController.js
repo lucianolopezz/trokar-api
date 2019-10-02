@@ -28,7 +28,7 @@ class UsersController {
   async view(req, res) {
     try {
       
-      const user = await Users.findById({
+      const user = await Users.findOne({
         where: {
           id: req.params.id,
           active: true,
