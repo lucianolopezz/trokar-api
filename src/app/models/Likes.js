@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     user_source: DataTypes.INTEGER,
     user_target: DataTypes.INTEGER,
-    like: {
+    liked: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     }, 
