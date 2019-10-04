@@ -1,3 +1,4 @@
+const sequelize = require('sequelize');
 const { Users } = require('../models');
 
 class Auth {
@@ -26,8 +27,19 @@ class Auth {
       const userExists = await Users.findOne({ where: { phone } });
 
       if(userExists) return res.status(400).json({ 'error': 'user already exists'});
+      
+      const price = await Users.findOne({
+        where: { brand: req.body.brand },
+        attributes: [[sequelize.fn('AVG', sequelize.col('price')), 'price_medium']],
+        raw: true,
+      });
+
+      if(price) {
+        req.body.price_medium = price.price_medium;
+      }
 
       const user = await Users.create(req.body);
+
 
       return res.json(user);
 

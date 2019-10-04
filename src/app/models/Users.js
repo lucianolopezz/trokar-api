@@ -24,6 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     km: DataTypes.DECIMAL,
     fuel: DataTypes.STRING,
     price_fipe: DataTypes.STRING,
+    price_medium: DataTypes.DECIMAL,
+    price: DataTypes.DECIMAL,
     active: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
