@@ -5,14 +5,13 @@ class PhotosController {
   async store(req, res) {
     try {
 
-      const { originalname: name, size, key, location: url = 'null' } = req.file;
+      const { originalname: name, size, key, location: url = '' } = req.file;
       const photo = await Photos.create({
         user_id: req.params.user_id,
         name,
         size,
         key,
         url,
-        //url: `${req.protocol}://${req.get('host')}/uploads/${key}`,
       });
 
       return res.json(photo);
@@ -36,7 +35,7 @@ class PhotosController {
   async delete(req, res) {
     try {
       
-      const photo = await Photos.destroy({ where: { id: req.params.id } });
+      const photo = await Photos.destroy({ where: { id: req.params.id }, individualHooks: true });
 
       return res.json(photo);
     } catch (error) {
