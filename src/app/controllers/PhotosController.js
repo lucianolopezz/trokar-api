@@ -5,13 +5,14 @@ class PhotosController {
   async store(req, res) {
     try {
 
-      const { originalname: name, size, filename: key,  } = req.file;
+      const { originalname: name, size, key, location: url = 'null' } = req.file;
       const photo = await Photos.create({
         user_id: req.params.user_id,
         name,
         size,
         key,
-        url: `${req.protocol}://${req.get('host')}/uploads/${key}`,
+        url,
+        //url: `${req.protocol}://${req.get('host')}/uploads/${key}`,
       });
 
       return res.json(photo);
