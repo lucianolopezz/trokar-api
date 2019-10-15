@@ -1,4 +1,3 @@
-const sequelize = require('sequelize');
 const { Users } = require('../models');
 
 class Auth {
@@ -28,18 +27,17 @@ class Auth {
 
       if(userExists) return res.status(400).json({ 'error': 'user already exists'});
       
-      const price = await Users.findOne({
-        where: { brand: req.body.brand },
-        attributes: [[sequelize.fn('AVG', sequelize.col('price')), 'price_medium']],
-        raw: true,
-      });
+      const price = parseFloat(req.body.price.substring(0, req.body.price.indexOf(',')));
+      const price_fipe = parseFloat(req.body.price_fipe.replace('R$', '').replace(',', '.'));   
+      const total = (price + price_fipe) / 2;
+      const price_medium = total - (2.5 * total / 100 );
 
-      if(price) {
-        req.body.price_medium = price.price_medium;
-      }
+      req.body.price = String(price.toFixed(3)).replace('.', '');
+      req.body.price_fipe = String(price_fipe.toFixed(3)).replace('.', '');
+      req.body.price_medium = String(price_medium.toFixed(3)).replace('.', '');
+      req.body.km = req.body.km;
 
       const user = await Users.create(req.body);
-
 
       return res.json(user);
 
