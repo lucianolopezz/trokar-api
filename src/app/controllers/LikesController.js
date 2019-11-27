@@ -1,6 +1,7 @@
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
 const { Likes, Users, Photos } = require('../models');
+const axios = require('axios');
 
 class LikesController {
 
@@ -41,6 +42,19 @@ class LikesController {
         if(targetSocket) {
           req.io.to(targetSocket).emit('match', userSource);
         }
+
+        // notification onesignal
+        await axios.post(process.env.ONESINGAL_URL_API, {
+          app_id: process.env.ONESINGAL_APP_ID,
+          contents: { 'pt': 'Alguém curtiu o seu veículo!' },
+          included_segments: ['Active Users'],
+        }, {
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'Authorization': `Basic ${process.env.ONESINGAL_REST_API_KEY}`,
+          }
+        });
+
       }
 
       return res.json(like);
