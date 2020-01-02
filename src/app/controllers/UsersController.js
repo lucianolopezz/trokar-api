@@ -5,18 +5,35 @@ const Op = Sequelize.Op;
 class UsersController {
 
   async index(req, res) {
+    let users = [];    
+
     try {
-      
-      const users = await Users.findAll({
+
+      users = await Users.findAll({
         where: {
           [Op.and]: [
             {id: { [Op.ne]: req.params.id }},
-            {id: { [Op.notIn]: Sequelize.literal(`(SELECT user_target FROM likes WHERE user_source = ${req.params.id})`) }}
+            {id: { [Op.notIn]: Sequelize.literal(`(SELECT user_target FROM likes WHERE user_source = ${req.params.id})`) }},
+            {model: req.query.model},
+            {year: req.query.year},
           ],
           active: true,
         },
         include: [Photos],
       });
+      
+      if(!users) {
+        users = await Users.findAll({
+          where: {
+            [Op.and]: [
+              {id: { [Op.ne]: req.params.id }},
+              {id: { [Op.notIn]: Sequelize.literal(`(SELECT user_target FROM likes WHERE user_source = ${req.params.id})`) }}
+            ],
+            active: true,
+          },
+          include: [Photos],
+        });
+      }
 
       return res.json(users);
 
